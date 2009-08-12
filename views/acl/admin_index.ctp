@@ -22,5 +22,5 @@ Things in the system that are wanted (most often actions or data) are called acc
 <ul>
  <li>does not show inherited permissions</li>
  <li>does not show full path in finder</li>
- <li>does not have crud fields</li>
+ <li><del>does not have crud fields</del></li>
 </ul>

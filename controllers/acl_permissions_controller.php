@@ -23,13 +23,9 @@ class AclPermissionsController extends AclAppController {
 		if ($this->exists($this->data)) {
 			$this->failure();
 		}
+		
+		
 		$this->AclAroAco->set($this->data);
-		$this->AclAroAco->set(array(
-			'_create' => 1,
-			'_read' => 1,
-			'_update' => 1,
-			'_delete' => 1
-		));
 		if (!$this->AclAroAco->save()) {
 			$this->failure();
 		}

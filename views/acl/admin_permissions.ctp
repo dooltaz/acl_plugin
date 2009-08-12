@@ -26,7 +26,28 @@ function acl_aro_permission_refresh() {
 function acl_permission_link() {
 	aro_id = document.getElementById('aro_editor_id').value;
 	aco_id = document.getElementById('aco_editor_id').value;
-	h = new Hash({'data[AclAroAco][aro_id]':aro_id, 'data[AclAroAco][aco_id]':aco_id});
+	
+	create_var = 0;
+	if(document.getElementById('create_var').checked) create_var = 1;
+
+	read_var = 0;
+	if(document.getElementById('read_var').checked) read_var = 1;
+
+	update_var = 0;
+	if(document.getElementById('update_var').checked) update_var = 1;
+
+	del_var = 0;
+	if(document.getElementById('del_var').checked) del_var = 1;
+
+	h = new Hash({
+		'data[AclAroAco][aro_id]':aro_id, 
+		'data[AclAroAco][aco_id]':aco_id,
+		'data[AclAroAco][_create]':create_var,
+		'data[AclAroAco][_read]':read_var,
+		'data[AclAroAco][_update]':update_var,
+		'data[AclAroAco][_delete]':del_var
+		});
+
 	new Ajax.Request('<?php print $html->url('/acl/aclPermissions/create') ?>', {parameters:h});
 	acl_aro_permission_refresh();
 	acl_aco_permission_refresh();
@@ -87,6 +108,13 @@ revoke.</p>
     </td>
     <td width="80">
       <?php print $html->image('/acl/img/tango/32x32/actions/edit-redo.png', array('onClick' => 'acl_permission_link()', 'class' => 'acl_button')) ?>
+	  <?php
+		echo $form->input('create_var', array('type'=>'checkbox', 'label'=>'C','checked'=>'checked'));
+		echo $form->input('read_var', array('type'=>'checkbox', 'label'=>'R','checked'=>'checked'));
+		echo $form->input('update_var', array('type'=>'checkbox', 'label'=>'U','checked'=>'checked'));
+		echo $form->input('del_var', array('type'=>'checkbox', 'label'=>'D','checked'=>'checked'));
+	  ?>
+	  
     <td>
       <select id="aco_editor_id" class="acl_select" size="10" onChange="acl_aco_permission_refresh()" ondblclick="acl_aco_editor_children(this.value)">
 		<option>Empty</option>
